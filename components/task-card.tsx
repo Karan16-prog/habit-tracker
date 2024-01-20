@@ -5,6 +5,8 @@ import { useState } from "react";
 import { Checkbox } from "./ui/checkbox";
 import { CheckedState } from "@radix-ui/react-checkbox";
 import DownArrow from "./svg/down_arr";
+import { useEffect } from "react";
+import ConfettiComponent from "./confetti";
 const TaskCard = () => {
   const [task, setTask] = useState(0);
   const [checked, setChecked] = useState(false);
@@ -26,7 +28,7 @@ const TaskCard = () => {
     // setChecked(false);
   };
   return (
-    <div className=" max-w-md">
+    <div className="max-w-md">
       <div className="relative text-right mb-10">
         <span className="text-md text-sm relative right-16 top-6">
           Tick Habits...
@@ -54,6 +56,7 @@ const TaskCard = () => {
           onCheckedChange={() => handleTaskCheck()}
           className="h-8 w-8 dark:text-secondary-foreground"
         />
+        {/* {isExecuting ? <ConfettiComponent /> : <ConfettiComponent />} */}
       </div>
     </div>
   );

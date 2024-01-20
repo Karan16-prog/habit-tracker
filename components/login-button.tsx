@@ -3,9 +3,11 @@ import { Button } from "@/components/ui/button";
 
 import React from "react";
 
-const LoginButton = () => {
+const LoginButton = ({ label }: { label?: string }) => {
   return (
-    <Button className="text-secondary-foreground rounded-lg">LOGIN</Button>
+    <Button className="text-secondary-foreground py-6 rounded-lg">
+      {!label ? "LOGIN" : label}
+    </Button>
   );
 };
 

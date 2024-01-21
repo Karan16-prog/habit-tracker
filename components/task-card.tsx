@@ -7,8 +7,13 @@ import { CheckedState } from "@radix-ui/react-checkbox";
 import DownArrow from "./svg/down_arr";
 import { useEffect } from "react";
 import ConfettiComponent from "./confetti";
+import { useTaskStore } from "@/app/store";
+
 const TaskCard = () => {
-  const [task, setTask] = useState(0);
+  const task = useTaskStore((state) => state.task);
+  const update = useTaskStore((state) => state.update);
+
+  // const [task, setTask] = useState(0);
   const [checked, setChecked] = useState(false);
   const [isExecuting, setIsExecuting] = useState(false);
 
@@ -20,21 +25,22 @@ const TaskCard = () => {
     setChecked(true);
 
     setTimeout(() => {
-      let newTask = task + 1 < conciseHabitsArray.length ? task + 1 : 0;
-      setTask(newTask);
+      let newTask = task + 1;
+      update(newTask);
       setChecked(false);
       setIsExecuting(false);
     }, 500);
     // setChecked(false);
   };
+
   return (
-    <div className="max-w-md">
+    <div>
       <div className="relative text-right mb-10">
-        <span className="text-md text-sm relative right-16 top-6">
+        <span className="text-md font-semibold text-sm relative right-16 top-6">
           Tick Habits...
         </span>
         <span className="absolute right-0 top-5">
-          <DownArrow />
+          <DownArrow style={{ transform: "rotate(180deg)", scale: 0.75 }} />
         </span>
       </div>
       <div
@@ -45,9 +51,9 @@ const TaskCard = () => {
       >
         <div className="font-bold text-xl flex items-center justify-center">
           {checked ? (
-            <del>{conciseHabitsArray[task]}</del>
+            <del>{conciseHabitsArray[task % 6]}</del>
           ) : (
-            conciseHabitsArray[task]
+            conciseHabitsArray[task % 6]
           )}
         </div>
 

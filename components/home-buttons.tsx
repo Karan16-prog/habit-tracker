@@ -4,7 +4,7 @@ import { Button } from "./ui/button";
 
 const HomeBtnWrapper = () => {
   return (
-    <div className="flex flex-col max-w-64">
+    <div className="flex flex-col min-w-64">
       <LoginButton label="GAMIFY MY HABITS" />
       <GoToSignIn />
     </div>

@@ -1,19 +1,16 @@
 "use client";
 
-import React from "react";
-import { useState } from "react";
-import { Checkbox } from "./ui/checkbox";
-import { CheckedState } from "@radix-ui/react-checkbox";
-import DownArrow from "./svg/down_arr";
-import { useEffect } from "react";
-import ConfettiComponent from "./confetti";
 import { useTaskStore } from "@/app/store";
+import { useState, useRef } from "react";
+import DownArrow from "./svg/down_arr";
+import { Checkbox } from "./ui/checkbox";
+import confetti from "canvas-confetti";
 
 const TaskCard = () => {
+  const targetRef = useRef<HTMLDivElement | null>(null);
+
   const task = useTaskStore((state) => state.task);
   const update = useTaskStore((state) => state.update);
-
-  // const [task, setTask] = useState(0);
   const [checked, setChecked] = useState(false);
   const [isExecuting, setIsExecuting] = useState(false);
 
@@ -33,19 +30,48 @@ const TaskCard = () => {
     // setChecked(false);
   };
 
+  const triggerConfetti = () => {
+    const targetElement = targetRef.current;
+    if (targetElement) {
+      const rect = targetElement.getBoundingClientRect();
+
+      console.log(rect.left + rect.width / 2, rect.top + rect.height / 2);
+      confetti({
+        particleCount: 30,
+        spread: 40,
+        angle: 125,
+        origin: {
+          x: (rect.right - window.scrollX) / window.innerWidth,
+          y: (rect.top + rect.height / 2) / window.innerHeight,
+        },
+        // other confetti options...
+      });
+    }
+  };
+
+  function randomInRange(min: number, max: number) {
+    return Math.random() * (max - min) + min;
+  }
+
+  console.log(task);
   return (
     <div>
       <div className="relative text-right mb-10">
-        <span className="text-md font-semibold text-sm relative right-16 top-6">
+        <div
+          className={`text-md font-semibold text-sm relative right-16 top-6 inline-block ${
+            task == 1 && "animate-word-rotate"
+          }`}
+        >
           Tick Habits...
-        </span>
+        </div>
         <span className="absolute right-0 top-5">
           <DownArrow style={{ transform: "rotate(180deg)", scale: 0.75 }} />
         </span>
       </div>
       <div
         id="parent-div"
-        className={`bg-secondary/25 flex px-4 py-6 justify-between items-center rounded-2xl ${
+        ref={targetRef}
+        className={`bg-secondary/25 bg-red-200 flex px-4 py-6 justify-between items-center rounded-2xl ${
           isExecuting ? "animate-fade-in" : ""
         }`}
       >
@@ -56,12 +82,16 @@ const TaskCard = () => {
             conciseHabitsArray[task % 6]
           )}
         </div>
-
         <Checkbox
           checked={checked}
-          onCheckedChange={() => handleTaskCheck()}
+          onCheckedChange={() => {
+            handleTaskCheck();
+
+            triggerConfetti();
+          }}
           className="h-8 w-8 dark:text-secondary-foreground"
         />
+
         {/* {isExecuting ? <ConfettiComponent /> : <ConfettiComponent />} */}
       </div>
     </div>

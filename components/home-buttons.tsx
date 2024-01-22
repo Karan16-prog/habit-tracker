@@ -14,7 +14,7 @@ const HomeBtnWrapper = () => {
 export default HomeBtnWrapper;
 
 export const GoToSignIn = ({ label }: { label?: string }) => (
-  <Button className="rounded-lg bg-transparent py-6">
+  <Button className="rounded-lg bg-transparent hover:bg-secondary-hover/25 mt-2 py-6">
     {!label ? "I HAVE AN ACCOUNT" : label}
   </Button>
 );

@@ -15,9 +15,11 @@
  
     --primary: 222.2 47.4% 11.2%;
     --primary-foreground: 210 40% 98%;
+    --primary-hover: 152, 95%, 39%;
  
     --secondary: 210 40% 96.1%;
     --secondary-foreground: 222.2 47.4% 11.2%;
+    --secondary-hover: 220 13% 69%;
  
     --muted: 210 40% 96.1%;
     --muted-foreground: 215.4 16.3% 46.9%;
@@ -36,7 +38,7 @@
   }
  
   .dark {
-    --background: 220 17% 17%;;
+    --background: 220 17% 17%;
     --foreground: 219 13% 69%;
  
     --card: 220 17% 17%;;
@@ -47,9 +49,11 @@
  
     --primary: 152, 95%, 39%;
     --primary-foreground: #FFFFFF;
+    --primary-hover: 152, 95%, 49%;
  
     --secondary: 220 13% 69%;
     --secondary-foreground: 210 40% 98%;
+    --secondary-hover: 220 13% 69%;
  
     --muted: 217.2 32.6% 17.5%;
     --muted-foreground: 215 20.2% 65.1%;
@@ -91,7 +95,33 @@
     .animate-fade-in {
       animation: fadeIn 0.5s;
     }
+
+    .animate-word-rotate {
+      animation: wiggle 1.25s infinite;
+      color: hsl(152, 95%, 39%)
+      /* animation-timing-function: ease-in-out; */
+      /* transform-origin: center; */
+    }
   
+
+    @keyframes wiggle{
+        
+          80% {
+            transform: rotate(0deg);
+          }
+        
+          85% {
+            transform: rotate(5deg);
+          }
+        
+          95% {
+            transform: rotate(-5deg);
+          }
+        
+          100% {
+            transform: rotate(0deg);
+          }
+    }
 }
  
 @layer base {

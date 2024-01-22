@@ -4,7 +4,6 @@ import HomeBar from "@/components/home-bar";
 import TaskCard from "@/components/task-card";
 import Image from "next/image";
 import { useState, useEffect } from "react";
-import ConfettiComponent from "@/components/confetti";
 import HomeBtnWrapper from "@/components/home-buttons";
 import GardenSlice from "@/components/garden/garden";
 import HomeFooter from "@/components/footer";

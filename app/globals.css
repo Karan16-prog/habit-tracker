@@ -76,6 +76,10 @@
       gap: 1px;
       /* Adjust as needed */
     }
+
+     .no-tailwind {
+       all: unset;
+     }
   
    
     @keyframes fadeIn {
